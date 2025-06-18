@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put,  Delete, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
 import { InstitucionService } from './institucion.service';
 import { InstitucionDto } from 'src/dto/Institucion.Dto';
 
@@ -15,9 +15,10 @@ export class InstitucionController {
   save(@Body() institucion: InstitucionDto) {
     const data = {
       nombre: institucion.nombre,
-      fecha_contrato: institucion.fecha,
-      id_proveedor: institucion.proveedor,
+      fecha_contrato: institucion.fecha_contrato,
+      id_proveedor: 1, // asegúrate de que NO esté undefined
     };
+
     return this.institucionService.create(data);
   }
 
@@ -25,7 +26,7 @@ export class InstitucionController {
   actualizar(@Param('id') id: string, @Body() institucion: InstitucionDto) {
     const data = {
       nombre: institucion.nombre,
-      fecha_contrato: institucion.fecha,
+      fecha_contrato: institucion.fecha_contrato,
       id_proveedor: institucion.proveedor,
     };
     return this.institucionService.actualizar(Number(id), data);
